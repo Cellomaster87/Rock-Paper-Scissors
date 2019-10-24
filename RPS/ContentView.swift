@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     var moves = ["Rock", "Paper", "Scissor"]
+    var movesEmojis = ["👊🏻", "🖐🏻", "✌🏻"]
     
     @State private var score = 0
     
@@ -38,8 +39,8 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                Text(moves[appsChoice])
-                    .font(.largeTitle)
+                Text(movesEmojis[appsChoice])
+                    .font(.system(size: 110))
                     .padding(.bottom)
                 
                 Text(shouldWin ? "Win against \(moves[appsChoice])" : "Lose against \(moves[appsChoice])")
@@ -48,15 +49,15 @@ struct ContentView: View {
                 HStack {
                     Button("👊") {
                         self.play(with: 0)
-                    }.font(.largeTitle)
+                    }.font(.system(size: 100))
 
                     Button("🖐") {
                         self.play(with: 1)
-                    }.font(.largeTitle)
+                    }.font(.system(size: 100))
 
                     Button("✌️") {
                         self.play(with: 2)
-                    }.font(.largeTitle)
+                    }.font(.system(size: 100))
                 }.padding()
                 
                 Text("\(result)")
