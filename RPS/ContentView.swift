@@ -15,9 +15,9 @@ struct ContentView: View {
     @State private var score = 0
     
     @State private var appsChoice = Int.random(in: 0...2)
-    @State private var playersChoice = 0
     
     @State private var shouldWin = Bool.random()
+    @State private var isAnswerCorrect: Bool = false
     
     @State private var result = ""
     
@@ -61,6 +61,9 @@ struct ContentView: View {
                 Spacer()
             }
             .navigationBarTitle("Rock, Paper, Scissors!")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
+            .background(isAnswerCorrect ? Color.green : Color.red)
         }
         .environment(\.horizontalSizeClass, .compact)
         .alert(isPresented: $isGameOver) { () -> Alert in
@@ -69,24 +72,28 @@ struct ContentView: View {
             }))
         }
     }
-    
+}
+
+extension ContentView {
     private func play(with playersChoice: Int) {
-        self.playersChoice = playersChoice
-        
         if shouldWin {
             if appsChoice != (playersChoice + 2) % 3 {
                 result = "Wrong!"
+                isAnswerCorrect = false
                 score -= 1
             } else {
                 result = "Correct!"
+                isAnswerCorrect = true
                 score += 1
             }
         } else {
             if appsChoice != (playersChoice + 1) % 3 {
                 result = "Wrong!"
+                isAnswerCorrect = false
                 score -= 1
             } else {
                 result = "Correct!"
+                isAnswerCorrect = true
                 score += 1
             }
         }
