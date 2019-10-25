@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var moves = ["Rock", "Paper", "Scissor"]
-    var movesEmojis = ["👊🏻", "🖐🏻", "✌🏻"]
+    var moves: [String] = ["Rock", "Paper", "Scissor"]
+    var movesEmojis: [String] = ["👊", "🖐", "✌️"]
     
     @State private var score = 0
     
@@ -47,17 +47,13 @@ struct ContentView: View {
                     .padding()
                 
                 HStack {
-                    Button("👊") {
-                        self.play(with: 0)
-                    }.font(.system(size: 100))
-
-                    Button("🖐") {
-                        self.play(with: 1)
-                    }.font(.system(size: 100))
-
-                    Button("✌️") {
-                        self.play(with: 2)
-                    }.font(.system(size: 100))
+                    ForEach(movesEmojis, id: \.self) { move in
+                        Button(move) {
+                            if let index = self.movesEmojis.firstIndex(of: move) {
+                                self.play(with: index)
+                            }
+                        }.font(.system(size: 100))
+                    }
                 }.padding()
                 
                 Text("\(result)")
